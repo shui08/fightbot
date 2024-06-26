@@ -32,14 +32,14 @@ class Animal(ABC):
     @strength.setter
     def strength(self, value):
         self._strength = value
-
+    
     def attack(self, animal):
         damage = rand.uniform(1, self._strength)
         animal.health = animal.health - damage
         return damage
     
     @abstractmethod
-    def same_species(self):
+    def same_species(self, animal):
         pass
 
     @abstractmethod
@@ -56,3 +56,4 @@ class Animal(ABC):
     def toString(self):
         return ("Animal age: " + self._age + "; health: " + self._health + 
                 "; strength: " + self._strength)
+    
