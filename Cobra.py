@@ -32,5 +32,5 @@ class Cobra(Animal, Carnivore):
             return True
         return False
 
-    def toString(self):
+    def to_string(self):
         return super().toString() + "; species: Cobra"

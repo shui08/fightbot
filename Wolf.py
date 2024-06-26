@@ -24,7 +24,7 @@ class Wolf(Animal, Carnivore):
         new_strength = (animal.strength * self.STRENGTH_GAIN) + self.strength
         self.strength = new_strength
 
-    def toString(self):
+    def to_string(self):
         return super().toString() + "; species: Wolf"
 
     

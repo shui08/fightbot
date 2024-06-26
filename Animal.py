@@ -53,7 +53,7 @@ class Animal(ABC):
     def poison_animal(self):
         return False
     
-    def toString(self):
+    def to_string(self):
         return ("Animal age: " + self._age + "; health: " + self._health + 
                 "; strength: " + self._strength)
     
