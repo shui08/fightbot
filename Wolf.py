@@ -1,7 +1,6 @@
 from Animal import Animal
 from Carnivore import Carnivore
 
-
 class Wolf(Animal, Carnivore):
     NAME = "Wolf"
     SLEEP_INCREASE = 1.6
