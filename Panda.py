@@ -21,7 +21,7 @@ class Panda(Animal, Herbivore):
     def is_poisonous(self):
         return False
     
-    def eat_plant(self, animal):
+    def eat_plant(self):
         random_strength = rand.uniform(0, self.MAX_STRENGTH_GAIN)
         self.strength = self.strength + random_strength
 
