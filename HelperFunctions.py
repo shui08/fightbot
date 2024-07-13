@@ -11,10 +11,7 @@ from Zebra import Zebra
 
 NUM_ANIMALS = 6
 SPACING = 17
-LEFT = "Left"
-RIGHT = "Right"
 AVG_STRENGTH_DIV = 2
-ANIMAL2_WIN = 2
 MAX_AGE = 100
 MAX_HP = 500
 MAX_STRENGTH = 250
@@ -49,7 +46,14 @@ def reproduce(animal1, animal2):
         
     return None
 
-def print_both_animals(animal1, animal2):
+async def send_to_channel(ctx, message):
+    await ctx.send(message)
+
+async def print_round(ctx, round_num):
+    message = f"Round {round_num}:"
+    await send_to_channel(ctx, message)
+
+async def print_both_animals(ctx, animal1, animal2):
     age_spacing = calc_spacing(str(animal1.age))
     health_spacing = calc_spacing(f"{animal1.health:.2f}")
     str_spacing = calc_spacing(f"{animal1.strength:.2f}")
@@ -62,7 +66,24 @@ def print_both_animals(animal1, animal2):
         f"H: {animal1.health:.2f} {' ' * health_spacing} H: {animal2.health:.2f}\n"
         f"S: {animal1.strength:.2f} {' ' * str_spacing} S: {animal2.strength:.2f}\n"
     )
-    print(str_result)
+    await send_to_channel(ctx, "```" + str_result + "```")
+
+async def print_attack(ctx, side, damage):
+    message = f"{side} does {damage:.2f} damage!"
+    await send_to_channel(ctx, message)
+
+async def print_final_stats(ctx, animal1, animal2, poisoned):
+    await print_both_animals(ctx, animal1, animal2)
+    if (poisoned):
+        await send_to_channel(ctx, "An animal was poisoned.")
+
+async def print_tie_game(ctx):
+    await send_to_channel(ctx, "-------GAME OVER-------")
+    await send_to_channel(ctx, "TIE: Both animals died!")
+
+async def print_winner(ctx, side):
+    await send_to_channel(ctx, "-------GAME OVER-------")
+    await send_to_channel(ctx, f"{side} animal wins!")
 
 def calc_spacing(string):
     total_width = SPACING
@@ -71,27 +92,6 @@ def calc_spacing(string):
     if (spacing < 0):
         return 0
     return spacing
-
-def print_round(round):
-    print()
-    print(f"Round {round}:")
-
-def print_attack(side, damage):
-    print(f"{side} does {damage:.2f} damage!")
-    
-def print_final_stats(animal1, animal2, poisoned):
-    print()
-    print_both_animals(animal1, animal2)
-    if (poisoned):
-        print("An animal was poisoned.")
-        
-def print_tie_game():
-    print("-------GAME OVER-------")
-    print("TIE: Both animals died!")
-
-def print_winner(side):
-    print("-------GAME OVER-------")
-    print(side + " animal wins!")
 
 def random_animal():
     rand_age = random_age(MAX_AGE)
@@ -112,7 +112,7 @@ def random_animal():
         return Cobra(rand_age, MAX_HP, rand_strength)
     else:
         return None
-    
+
 def random_age(max):
     rand_age = rand.randint(0, max)
     return rand_age
