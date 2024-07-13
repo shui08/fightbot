@@ -1,4 +1,4 @@
-import random as rand
+import random as rand 
 from Animal import Animal
 from Carnivore import Carnivore
 from Herbivore import Herbivore

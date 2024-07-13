@@ -1,5 +1,8 @@
 # TODO: FIX A, H, S SPACING DURING FIGHT, ADD ABILITY TO CREATE WHATEVER ANIMALS
 # YOU WANT, ADD REPRODUCE, REVIEW ALL OF CODE
+
+# GENERAL RULE OF THUMB: USE ASYNC AND AWAIT WITH ANYTHING THAT INVOLVES SENDING
+# TO THE CHANNEL
 import os
 from dotenv import load_dotenv, dotenv_values
 from discord.ext import commands
@@ -18,16 +21,19 @@ from Zebra import Zebra
 
 load_dotenv()
 BOT_TOKEN = f"{os.getenv('FIGHTBOT_TOKEN')}"
-CHANNEL_ID = 1254308135334838272
+CHANNEL_ID = int(os.getenv('CHANNEL'))
+LEFT = "Left"
+RIGHT = "Right"
+START = "fightbot start!"
 
 bot = commands.Bot(command_prefix = "!", intents = discord.Intents.all())
 
 # sends a message on startup
 @bot.event
 async def on_ready():
-    print("fightbot start!")
+    print(START)
     channel = bot.get_channel(CHANNEL_ID)
-    await channel.send("fightbot start!")
+    await channel.send(START)
 
 # makes 2 random animals fight each other
 @bot.command()
@@ -53,8 +59,8 @@ async def fightrandom(ctx):
     while (animal1.health > 0 and animal2.health > 0):
         await HF.print_round(ctx, round_num)
         await HF.print_both_animals(ctx, animal1, animal2)
-        await HF.print_attack(ctx, "Left", animal1.attack(animal2))
-        await HF.print_attack(ctx, "Right", animal2.attack(animal1))
+        await HF.print_attack(ctx, LEFT, animal1.attack(animal2))
+        await HF.print_attack(ctx, RIGHT, animal2.attack(animal1))
         round_num += 1
         
     await HF.print_final_stats(ctx, animal1, animal2, poison)
@@ -72,7 +78,7 @@ async def fightrandom(ctx):
         elif (isinstance(animal1, Herbivore)):
             animal1.eat_plant()
             
-        await HF.print_winner(ctx, "Left")
+        await HF.print_winner(ctx, LEFT)
     else:
         if (animal2_poison):
             await HF.print_tie_game(ctx)
@@ -82,6 +88,6 @@ async def fightrandom(ctx):
         elif (isinstance(animal2, Herbivore)):
             animal2.eat_plant()
             
-        await HF.print_winner(ctx, "Right")
+        await HF.print_winner(ctx, RIGHT)
     
 bot.run(BOT_TOKEN)
