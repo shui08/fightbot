@@ -17,34 +17,6 @@ MAX_HP = 500
 MAX_STRENGTH = 250
 MIN_AGE_REP = 5
 BABY_HP = 100
-    
-def reproduce(animal1, animal2):
-    if (animal1.age > MIN_AGE_REP and animal2.age > MIN_AGE_REP and
-        animal1.same_species(animal2)):
-        age = 0
-        health = BABY_HP
-        strength = (((animal1.strength + animal2.strength) / AVG_STRENGTH_DIV) / 
-                    AVG_STRENGTH_DIV)
-        
-        if (isinstance(animal1, Wolf)):
-            return Wolf(age, health, strength)
-        
-        if (isinstance(animal1, Leopard)):
-            return Leopard(age, health, strength)
-        
-        if (isinstance(animal1, Toad)):
-            return Toad(age, health, strength)
-        
-        if (isinstance(animal1, Cobra)):
-            return Cobra(age, health, strength)
-        
-        if (isinstance(animal1, Panda)):
-            return Panda(age, health, strength)
-        
-        if (isinstance(animal1, Zebra)):
-            return Zebra(age, health, strength)
-        
-    return None
 
 async def send_to_channel(ctx, message):
     await ctx.send(message)
@@ -83,7 +55,7 @@ async def print_tie_game(ctx):
 
 async def print_winner(ctx, side):
     await send_to_channel(ctx, "-------GAME OVER-------")
-    await send_to_channel(ctx, f"{side} animal wins!")
+    await send_to_channel(ctx, f"   {side} wins!")
 
 def calc_spacing(string):
     total_width = SPACING
