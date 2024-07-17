@@ -28,7 +28,7 @@ TOAD = "https://www.alfoart.com/images/toad-tutorial/1-022.jpg"
 COBRA = "https://thumbs.dreamstime.com/b/funny-cobra-wearing-sunglasses-studio-colorful-bright-background-created-generative-ai-277723926.jpg"
 PANDA = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS4YqkaiHiJ29r0xJSiaPmlAbvlHdSKMoV-A&s"
 ZEBRA = "https://t4.ftcdn.net/jpg/06/01/35/87/360_F_601358710_FrekunRVshbs0LewSFg5KyxBtuT3K5Ur.jpg"
-animal_dict = {}
+ANIMAL_DICT = {}
 
 bot = commands.Bot(command_prefix = "!", intents = discord.Intents.all())
 
@@ -97,13 +97,13 @@ async def fightrandom(ctx):
 # makes 2 existing animals fight each other - accepts 2 arguments
 @bot.command()
 async def fight(ctx, animal1_name: str, animal2_name: str):
-    if (animal1_name not in animal_dict or animal2_name not in animal_dict):
+    if (animal1_name not in ANIMAL_DICT or animal2_name not in ANIMAL_DICT):
         await HF.send_to_channel(ctx, 
                                  "One or both of your animals don't exist!")
         return
     
-    animal1 = animal_dict[animal1_name]
-    animal2 = animal_dict[animal2_name]
+    animal1 = ANIMAL_DICT[animal1_name]
+    animal2 = ANIMAL_DICT[animal2_name]
     
     animal1_poison = False
     animal2_poison = False
@@ -160,7 +160,7 @@ async def fight(ctx, animal1_name: str, animal2_name: str):
 @bot.command()
 async def wolf(ctx, age: int = 0, health: float = 0, strength: float = 0, 
                name: str = ""):
-    if (name in animal_dict):
+    if (name in ANIMAL_DICT):
         await HF.send_to_channel(ctx, "This name is already in use!")
         return
     if (age == 0):
@@ -172,7 +172,7 @@ async def wolf(ctx, age: int = 0, health: float = 0, strength: float = 0,
     if (name == ""):
         name = chr(rand.randint(MIN_ASCII_CHAR, MAX_ASCII_CHAR))
     new_wolf = Wolf(age, health, strength)
-    animal_dict[name] = new_wolf
+    ANIMAL_DICT[name] = new_wolf
     await HF.send_to_channel(ctx, "You created a new Wolf!")
     await HF.send_to_channel(ctx, WOLF)
     await HF.send_to_channel(ctx, f"Age: {age}  Health: {health:.2f}\
@@ -182,7 +182,7 @@ async def wolf(ctx, age: int = 0, health: float = 0, strength: float = 0,
 @bot.command()
 async def leopard(ctx, age: int = 0, health: float = 0, strength: float = 0, 
                   name: str = ""):
-    if (name in animal_dict):
+    if (name in ANIMAL_DICT):
         await HF.send_to_channel(ctx, "This name is already in use!")
         return
     if (age == 0):
@@ -194,7 +194,7 @@ async def leopard(ctx, age: int = 0, health: float = 0, strength: float = 0,
     if (name == ""):
         name = chr(rand.randint(MIN_ASCII_CHAR, MAX_ASCII_CHAR))
     new_leopard = Leopard(age, health, strength)
-    animal_dict[name] = new_leopard
+    ANIMAL_DICT[name] = new_leopard
     await HF.send_to_channel(ctx, "You created a new Leopard!")
     await HF.send_to_channel(ctx, LEOPARD)
     await HF.send_to_channel(ctx, f"Age: {age}  Health: {health:.2f}\
@@ -204,7 +204,7 @@ async def leopard(ctx, age: int = 0, health: float = 0, strength: float = 0,
 @bot.command()
 async def toad(ctx, age: int = 0, health: float = 0, strength: float = 0, 
                name: str = ""):
-    if (name in animal_dict):
+    if (name in ANIMAL_DICT):
         await HF.send_to_channel(ctx, "This name is already in use!")
         return
     if (age == 0):
@@ -216,7 +216,7 @@ async def toad(ctx, age: int = 0, health: float = 0, strength: float = 0,
     if (name == ""):
         name = chr(rand.randint(MIN_ASCII_CHAR, MAX_ASCII_CHAR))
     new_toad = Toad(age, health, strength)
-    animal_dict[name] = new_toad
+    ANIMAL_DICT[name] = new_toad
     await HF.send_to_channel(ctx, "You created a new Toad!")
     await HF.send_to_channel(ctx, TOAD)
     await HF.send_to_channel(ctx, f"Age: {age}  Health: {health:.2f}\
@@ -226,7 +226,7 @@ async def toad(ctx, age: int = 0, health: float = 0, strength: float = 0,
 @bot.command()
 async def cobra(ctx, age: int = 0, health: float = 0, strength: float = 0, 
                 name: str = ""):
-    if (name in animal_dict):
+    if (name in ANIMAL_DICT):
         await HF.send_to_channel(ctx, "This name is already in use!")
         return
     if (age == 0):
@@ -238,7 +238,7 @@ async def cobra(ctx, age: int = 0, health: float = 0, strength: float = 0,
     if (name == ""):
         name = chr(rand.randint(MIN_ASCII_CHAR, MAX_ASCII_CHAR))
     new_cobra = Cobra(age, health, strength)
-    animal_dict[name] = new_cobra
+    ANIMAL_DICT[name] = new_cobra
     await HF.send_to_channel(ctx, "You created a new Cobra!")
     await HF.send_to_channel(ctx, COBRA)
     await HF.send_to_channel(ctx, f"Age: {age}  Health: {health:.2f}\
@@ -248,7 +248,7 @@ async def cobra(ctx, age: int = 0, health: float = 0, strength: float = 0,
 @bot.command()
 async def panda(ctx, age: int = 0, health: float = 0, strength: float = 0, 
                 name: str = ""):
-    if (name in animal_dict):
+    if (name in ANIMAL_DICT):
         await HF.send_to_channel(ctx, "This name is already in use!")
         return
     if (age == 0):
@@ -260,7 +260,7 @@ async def panda(ctx, age: int = 0, health: float = 0, strength: float = 0,
     if (name == ""):
         name = chr(rand.randint(MIN_ASCII_CHAR, MAX_ASCII_CHAR))
     new_panda = Panda(age, health, strength)
-    animal_dict[name] = new_panda
+    ANIMAL_DICT[name] = new_panda
     await HF.send_to_channel(ctx, "You created a new Panda!")
     await HF.send_to_channel(ctx, PANDA)
     await HF.send_to_channel(ctx, f"Age: {age}  Health: {health:.2f}\
@@ -270,7 +270,7 @@ async def panda(ctx, age: int = 0, health: float = 0, strength: float = 0,
 @bot.command()
 async def zebra(ctx, age: int = 0, health: float = 0, strength: float = 0, 
                 name: str = ""):
-    if (name in animal_dict):
+    if (name in ANIMAL_DICT):
         await HF.send_to_channel(ctx, "This name is already in use!")
         return
     if (age == 0):
@@ -282,7 +282,7 @@ async def zebra(ctx, age: int = 0, health: float = 0, strength: float = 0,
     if (name == ""):
         name = chr(rand.randint(MIN_ASCII_CHAR, MAX_ASCII_CHAR))
     new_zebra = Zebra(age, health, strength)
-    animal_dict[name] = new_zebra
+    ANIMAL_DICT[name] = new_zebra
     await HF.send_to_channel(ctx, "You created a new Zebra!")
     await HF.send_to_channel(ctx, ZEBRA)
     await HF.send_to_channel(ctx, f"Age: {age}  Health: {health:.2f}\
